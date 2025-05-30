@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Mountain West Web Development',
   description: 'Professional web design, web development, API integration, SEO, and SEM services for forward-thinking brands.',
+  icons: {
+    icon: '/favicon.ico',
+  }
 };
 
 export default function RootLayout({
