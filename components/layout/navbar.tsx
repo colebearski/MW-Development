@@ -31,11 +31,12 @@ export default function Navbar() {
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex-shrink-0">
                         <Link href="/" className="flex items-center h-20">
-                            <img
+                            <span>MW Dev</span>
+                            {/* <img
                                 src="/mw_mountain.png"
                                 alt="Mountain West Web Development"
                                 className="h-16 sm:h-20 w-auto"
-                            />
+                            /> */}
                         </Link>
                     </div>
 
