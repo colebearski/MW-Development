@@ -86,7 +86,7 @@ export default function ServicesSection() {
                     </FadeIn>
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
                         <AnimatedText text="Transforming ideas into" className="block" />
-                        <AnimatedText text="digital reality" className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70" delay={0.2} />
+                        <AnimatedText text="digital reality" className="block" delay={0.2} />
                     </h2>
                     <FadeIn delay={0.4}>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
