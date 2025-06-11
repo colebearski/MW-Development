@@ -22,6 +22,7 @@ const formSchema = z.object({
     phone: z.string().optional(),
     service: z.string().min(1, { message: "Please select a service." }),
     message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+    bot_field: z.string().optional(), // honeypot
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -39,17 +40,24 @@ export default function ContactSection() {
             phone: "",
             service: "",
             message: "",
+            bot_field: ""
         },
     });
 
     const onSubmit = async (data: FormValues) => {
         setIsSubmitting(true);
         try {
-            // Save to Supabase - this would need a real Supabase URL and key to work
+            if (data.bot_field && data.bot_field.trim() !== "") {
+                // Looks like spam
+                throw new Error("Invalid request.");
+            }
+
+            // Remove bot field
+            const { bot_field, ...cleanData } = data;
+
             const { error } = await supabase.from("contact_submissions").insert([
                 {
-                    ...data,
-                    status: "new",
+                    ...cleanData
                 },
             ]);
 
@@ -202,7 +210,15 @@ export default function ContactSection() {
                                                 </FormItem>
                                             )}
                                         />
-
+                                        <FormField
+                                            control={form.control}
+                                            name="bot_field"
+                                            render={({ field }) => (
+                                                <div style={{ display: 'none' }}>
+                                                    <input type="text" autoComplete="off" {...field} />
+                                                </div>
+                                            )}
+                                        />
                                         <Button type="submit" className="w-full" disabled={isSubmitting} variant="outline" style={{ cursor: "pointer" }}>
                                             {isSubmitting ? "Sending..." : "Send Message"}
                                         </Button>
